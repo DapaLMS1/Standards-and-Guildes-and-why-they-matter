@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Transcript: Standards & Guidelines</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #F2F2F2;
+        }
+        
+        .transcript-segment {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 4px solid transparent;
+        }
+
+        .transcript-segment:hover {
+            background-color: rgba(195, 172, 232, 0.15); /* #C3ACE8 lightened */
+            border-left-color: #9D8ABB;
+        }
+
+        .transcript-segment.active {
+            background-color: rgba(195, 172, 232, 0.25); /* #C3ACE8 lightened */
+            color: #532A8C;
+            border-left-color: #7ABF49;
+            font-weight: 500;
+        }
+        
+        /* Custom scrollbar for transcript */
+        .transcript-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        .transcript-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .transcript-container::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+        .transcript-container::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8 flex items-center justify-center">
+
+    <div class="max-w-5xl w-full bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row">
+        
+        <!-- Left Side: Player & Info -->
+        <div class="w-full md:w-1/3 bg-[#F2F2F2]/50 p-6 md:p-8 border-b md:border-b-0 md:border-r border-[#C3ACE8]/30 flex flex-col justify-center">
+            <div class="mb-6 flex items-center justify-center w-16 h-16 bg-[#C3ACE8]/40 text-[#532A8C] rounded-full mb-6">
+                <i class="fas fa-headphones-alt text-2xl"></i>
+            </div>
+            
+            <h1 class="text-2xl font-bold text-[#532A8C] mb-2">Standards & Guidelines</h1>
+            <p class="text-[#9D8ABB] mb-8 text-sm">Interactive Audio Lesson</p>
+            
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-[#C3ACE8]/30">
+                <p class="text-xs text-[#9D8ABB] font-semibold uppercase tracking-wider mb-3">Audio Player</p>
+                <audio id="audioPlayer" class="w-full outline-none" controls>
+                    <!-- Using the exact file name provided -->
+                    <source src="Audio_Why do we need to know about the Standards and the Guidelines.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+            
+            <div class="mt-8 text-sm text-gray-600 bg-white p-4 rounded-lg border border-[#96BF78]">
+                <i class="fas fa-info-circle text-[#7ABF49] mr-2"></i>
+                <span class="text-gray-600"><strong>Tip:</strong> You can click any paragraph in the transcript to jump to that section of the audio.</span>
+            </div>
+        </div>
+
+        <!-- Right Side: Interactive Transcript -->
+        <div class="w-full md:w-2/3 p-6 md:p-8 h-[600px] flex flex-col">
+            <h2 class="text-lg font-semibold text-[#532A8C] mb-4 pb-2 border-b border-[#C3ACE8]/30 flex justify-between items-center">
+                <span>Transcript</span>
+                <span class="text-xs bg-[#C3ACE8]/20 text-[#532A8C] px-2 py-1 rounded-full font-medium">Auto-scrolling</span>
+            </h2>
+            
+            <!-- Transcript Container -->
+            <div class="transcript-container flex-1 overflow-y-auto pr-4" id="transcriptContainer">
+                
+                <!-- Timestamps are estimated for the interaction. They guide the highlighting. -->
+                <div class="transcript-segment text-gray-600 pl-4 py-3 mb-2 rounded-r-lg" data-start="0" data-end="6">
+                    <p>So, a question that comes up a lot is: Why do I actually need to know about the Standards and Guidelines?</p>
+                </div>
+
+                <div class="transcript-segment text-gray-600 pl-4 py-3 mb-2 rounded-r-lg" data-start="6" data-end="20.5">
+                    <p>Well, here is the reality. In the event of an audit, or worse, a legal inquiry, simply saying 'we were just following common practice' is not a valid defense. You must be able to demonstrate that your facility's protocols are derived directly from these essential resources.</p>
+                </div>
+
+                <div class="transcript-segment text-gray-600 pl-4 py-3 mb-2 rounded-r-lg" data-start="20.5" data-end="33">
+                    <p>Let's break down how they apply to your day-to-day operations. First, look at staff training. These documents shouldn't just sit on a shelf; they need to be used to create your facility's Standard Operating Procedures, or SOPs.</p>
+                </div>
+
+                <div class="transcript-segment text-gray-600 pl-4 py-3 mb-2 rounded-r-lg" data-start="33" data-end="45">
+                    <p>Next is validation. When you are looking for the technical requirements for steriliser Performance Qualification—your PQ—you will find those specifically outlined within AS 5369.</p>
+                </div>
+
+                <div class="transcript-segment text-gray-600 pl-4 py-3 mb-2 rounded-r-lg" data-start="45" data-end="999">
+                    <p>And finally, there's audit readiness. You have to keep these resources accessible to your team, whether that's digitally or in hard copy. In fact, having them readily available is a strict requirement for most clinical accreditation schemes.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const audio = document.getElementById('audioPlayer');
+            const segments = document.querySelectorAll('.transcript-segment');
+            const container = document.getElementById('transcriptContainer');
+
+            // 1. Highlight transcript as audio plays
+            audio.addEventListener('timeupdate', () => {
+                const currentTime = audio.currentTime;
+
+                segments.forEach(segment => {
+                    const start = parseFloat(segment.getAttribute('data-start'));
+                    const end = parseFloat(segment.getAttribute('data-end'));
+
+                    if (currentTime >= start && currentTime < end) {
+                        // If it's the active segment but doesn't have the class yet
+                        if (!segment.classList.contains('active')) {
+                            // Remove active from all
+                            segments.forEach(s => s.classList.remove('active'));
+                            // Add active to current
+                            segment.classList.add('active');
+                            
+                            // Optional auto-scroll to keep active text in view
+                            segment.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    } else {
+                        // Reset if it goes out of bounds (e.g. user scrubs timeline backward)
+                        segment.classList.remove('active');
+                    }
+                });
+            });
+
+            // 2. Click transcript to jump to audio time
+            segments.forEach(segment => {
+                segment.addEventListener('click', () => {
+                    const startTime = parseFloat(segment.getAttribute('data-start'));
+                    audio.currentTime = startTime;
+                    audio.play().catch(e => console.log("Audio play prevented by browser policy until user interacts."));
+                });
+            });
+        });
+    </script>
+</body>
+</html>
